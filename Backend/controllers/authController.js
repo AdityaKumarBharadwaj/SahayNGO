@@ -5,6 +5,10 @@ const register = async (req, res) => {
     try {
         const { name, email, password, role, phone } = req.body;
 
+        if (password.length < 8) {
+          return res.status(400).json({ message: "Password too short" });
+        }
+
         const userExists = await User.findOne({ email });
 
         if (userExists) {
@@ -13,6 +17,7 @@ const register = async (req, res) => {
                 message: 'User already exists with this email',
             });
         }
+
 
         const user = await User.create({
             name,
