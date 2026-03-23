@@ -3,11 +3,13 @@ const dotenv = require('dotenv');
 const app = express();
 const connectDB = require('./config/db');
 const { connect } = require('mongoose');
+const authRoutes = require('./routes/authRoutes');
 
 dotenv.config();
 connectDB();
 app.use(express.json());
 
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
     console.log("Sahaya app is running");
