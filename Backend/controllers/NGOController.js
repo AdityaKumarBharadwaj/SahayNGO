@@ -289,4 +289,3 @@ module.exports = {
   rejectNGO,
   getPendingNGOs
 };
-
