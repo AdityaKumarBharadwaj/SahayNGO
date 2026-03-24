@@ -40,6 +40,36 @@ const getAllNGOs = async (req, res) => {
     }
 }
 
+const getNGOById = async (req, res) => {
+  try {
+    
+    const { id } = req.params;
+
+    const ngo = await NGO.findById(id)
+      .populate('user', 'name email phone')
+      .select('-documents -bankDetails');
+
+    
+    if (!ngo) {
+      return res.status(404).json({
+        success: false,
+        message: 'NGO not found'
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: ngo
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Server error',
+      error: error.message
+    });
+  }
+};
 
 const createNGO = async (req, res) => {
     try {
