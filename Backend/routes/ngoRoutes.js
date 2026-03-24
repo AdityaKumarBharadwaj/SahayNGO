@@ -1,0 +1,38 @@
+const express = require('express');
+const router = express.Router();
+
+const { getAllNGOs, getNGOById, createNGO, updateNGO, getMyNGO, approveNGO, rejectNGO, getPendingNGOs } = require('../controllers/NGOController');
+const {protect, authorize} = require('../middlewares/authMiddlewares');
+
+//public routes
+// GET /api/ngos?cause=education&city=Mumbai&search=akanksha
+router.get('/', getAllNGOs);
+
+// GET /api/ngos/:id
+router.get('/:id', getNGOById);
+
+// private route
+// GET /api/ngos/me/profile
+router.get('/me/profile', protect, getMyNGO);
+
+// POST /api/ngos
+router.post('/', protect, authorize('ngo'), createNGO);
+
+//  PUT /api/ngos/:id
+router.put('/:id', protect, updateNGO);
+
+// admin routes
+
+// Get pending NGOs for verification
+// GET /api/ngos/admin/pending
+router.get('/:id/pending', protect, authorize('admin'), getPendingNGOs);
+
+// Approve NGO
+// PUT /api/ngos/:id/approve
+router.put('/:id/approve', protect, authorize('admin'), approveNGO);
+
+// Reject NGO
+// PUT /api/ngos/:id/reject
+router.put('/:id/reject/', protect, authorize('admin'), rejectNGO);
+
+module.exports = router;

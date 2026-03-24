@@ -1,6 +1,8 @@
 const NGO = require("../models/NGO");
-const User = require("../models/");
+const User = require("../models/User");
 
+
+// public routes
 const getAllNGOs = async (req, res) => {
     try {
         const {cause, city, search} = req.query;
@@ -70,6 +72,8 @@ const getNGOById = async (req, res) => {
     });
   }
 };
+
+// prootected routes
 
 const createNGO = async (req, res) => {
     try {
