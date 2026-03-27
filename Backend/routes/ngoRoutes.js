@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { getAllNGOs, getNGOById, createNGO, updateNGO, getMyNGO, approveNGO, rejectNGO, getPendingNGOs } = require('../controllers/NGOController');
-const {protect, authorize} = require('../middlewares/authMiddlewares');
+const { protect, authorize } = require('../middlewares/authMiddlewares');
 
 //public routes
 // GET /api/ngos?cause=education&city=Mumbai&search=akanksha
@@ -24,15 +24,15 @@ router.put('/:id', protect, updateNGO);
 // admin routes
 
 // Get pending NGOs for verification
-// GET /api/ngos/admin/pending
-router.get('/:id/pending', protect, authorize('admin'), getPendingNGOs);
+// GET /api/ngo/admin/pending
+router.get('/admin/pending', protect, authorize('admin'), getPendingNGOs);
 
 // Approve NGO
 // PUT /api/ngos/:id/approve
 router.put('/:id/approve', protect, authorize('admin'), approveNGO);
 
 // Reject NGO
-// PUT /api/ngos/:id/reject
-router.put('/:id/reject/', protect, authorize('admin'), rejectNGO);
+// PUT /api/ngo/:id/reject
+router.put('/:id/reject', protect, authorize('admin'), rejectNGO);
 
 module.exports = router;
