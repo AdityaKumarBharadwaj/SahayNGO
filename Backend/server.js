@@ -11,7 +11,7 @@ connectDB();
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
-app.use('api/ngoRoutes', ngoRoutes);
+app.use('/api/ngos', ngoRoutes);
 
 app.get('/', (req, res) => {
     console.log("Sahaya app is running");
